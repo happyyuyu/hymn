@@ -6,15 +6,16 @@ Includes a parser and interpreter for the SimHYMN instructions.
 Author: Harry Zhou
 """
 from collections import deque
+import numpy as np
 
 class Simulator:
-
-    def __init__(self, mem=[0]*32):
-        self._memory = mem
+    def __init__(self, mem):
+        self._memory = np.array(mem).astype(np.int8)
         self._pc = 0
-        self._ir = 0 
+        self._ir = 0
         self._ac = 0
         self._io = ""
+        self._done = False
         self._zero_flag = True
         self._positive_flag = False
         self.INSTRUCTIONS = {1: self._exec_jump,
@@ -26,26 +27,30 @@ class Simulator:
                              7: self._exec_sub}
 
     def run(self, verbose=0):
-        done = False
-        while not done and self._pc < 30:
-            self._ir = self._memory[self._pc]
-            bits = self._to_unsigned_bin8(self._memory[self._pc])
-            instrn = bits >> 5
-            num = bits - (instrn << 5)
-            if verbose == 1:
-                print("pc: ", self._pc)
-                print("ir: ", self._ir)
-                print("ac: ", self._ac)
-            if instrn == 0:
-                done = True
-                break
-            self.INSTRUCTIONS[instrn](num)
-            self._pc += 1
-        print(self._io)
+        while not self._done and self._pc < 30:
+            self.step(verbose)
+        print("io: ", self._io)
         return self._io
+
+    def step(self, verbose, jump=False):
+        self._ir = self._memory[self._pc]
+        instrn = np.right_shift(self._memory[self._pc], 5) & 7
+        num = np.int8(self._memory[self._pc] - (instrn << 5))
+        print("num: ", np.binary_repr(instrn, width=8))
+        if instrn == 0:
+            self._done = True
+            return
+        self.INSTRUCTIONS[instrn](num)     
+        if verbose == 1:
+            print("pc: ", self._pc)
+            print("ir: ", self._ir)
+            print("ac: ", self._ac)
+        if (jump==False):
+            self._pc += 1
 
     def _exec_jump(self, addr):
         self._pc = addr 
+        self.step(1, True)
 
     def _exec_jzer(self, addr):
         if self._zero_flag:
@@ -56,16 +61,16 @@ class Simulator:
             self._pc = addr 
 
     def _exec_load(self, addr):
-        if addr==31:
+        if addr==30:
             self._io += "? "
             user_input = input("? ")
             self._io += user_input
-            self._memory[addr] = user_input
+            self._memory[addr] = np.int8(user_input)
         self._ac = self._memory[addr]
 
     def _exec_stor(self, addr):
-        if addr==32:
-            self._io += self._ac
+        if addr==31:
+            self._io += str(self._ac)
         self._memory[addr] = self._ac 
 
     def _exec_sub(self, addr):
@@ -73,11 +78,6 @@ class Simulator:
 
     def _exec_add(self, addr):
         self._ac += self._memory[addr]
-
-    def _to_unsigned_bin8(self, num):
-        if num < 0:
-            return (1 << 8) - (0 - num) 
-        return num
 
     def out(self):
         print(self._io)
