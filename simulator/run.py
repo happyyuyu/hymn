@@ -1,6 +1,7 @@
 from hymn import Simulator
 import numpy as np
 
+#TODO: create a unittest suite for testing
 mem = np.array([0]*32, dtype=np.int8)
 mem[0] = 33
 mem[1] = -118

@@ -101,6 +101,58 @@ class Simulator:
             self._zero_flag = False
             self._positive_flag = False
         
-
     def out(self):
         print(self._io)
+
+
+class Parser:
+    def __init__(self, filename):
+        with open(filename, 'r') as in_file:
+            lines = in_file.readlines()
+
+        lines = [line.strip() for line in lines]  # clean up
+        lines = [line._remove_comment() for line in lines] # remove comment
+
+        self._mem = np.array([0]*32, dtype=np.int8)
+        labels = dict()
+
+        self._mem_ids = [0 for i in range(len(lines))]
+        self._currrent_id = 0
+
+        # Get all the labels
+        for index, line in enumerate(lines):
+            if ":" in line:
+                labels[":"] = index
+        self._errors = ""
+
+    def _remove_comment(self, line):
+        if "#" in line:
+            pos = line.find("#")
+            line = line[:pos]
+        return line
+    
+    def _find_label(self, index, lines):
+        self._mem_ids[index] = -1
+        if lines[index].endswith(":"):
+            if index = len(lines) - 1:
+                #TODO: May have problem if the last lines are empty
+                self._errors += "Line "+str(index+1)+": Lable Precedes end of file" 
+            else:
+                segments = line.split(":")
+                self._check_label_segs(segments)
+
+        else:
+            self._mem_ids[index] = self._currrent_id
+            self._currrent_id += 1
+            segments = line.split(":")
+            last_seg = segments.pop()
+            self._check_label_segs(segments)  
+
+    def _check_label_segs(self, segments):
+            for seg in segments:
+                if " " in seg.strip():
+                    self._errors += "Line "+str(index+1)+": Lables cannot contain white space"
+                else:
+                    labels[seg] = index
+
+    
