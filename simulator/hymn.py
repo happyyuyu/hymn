@@ -111,19 +111,33 @@ class Parser:
             lines = in_file.readlines()
 
         lines = [line.strip() for line in lines]  # clean up
-        lines = [line._remove_comment() for line in lines] # remove comment
+        lines = [self._remove_comment(line) for line in lines] # remove comment
 
         self._mem = np.array([0]*32, dtype=np.int8)
-        labels = dict()
-
-        self._mem_ids = [0 for i in range(len(lines))]
+        self._aux_lines = []
+        self._labels = dict()
+        self._pending_labels = []
         self._currrent_id = 0
+        self._instrn_table = {"jump": 1,
+                             "jzer": 2,
+                             "jpos": 3,
+                             "load": 4,
+                             "stor": 5,
+                             "add": 6,
+                             "sub": 7}
 
         # Get all the labels
-        for index, line in enumerate(lines):
-            if ":" in line:
-                labels[":"] = index
         self._errors = ""
+        for index, line in enumerate(lines):
+            self._find_label(index, lines)
+        
+        if self._pending_labels:
+            for label, line_num in self._pending_labels:
+                self._errors += "Line " + str(line_num+1)+": Lable precedes end of file\n"
+
+        for cur_index, line_info in enumerate(self._aux_lines):
+            self._parse_instrn(line_info[0],cur_index,line_info[1])
+        
 
     def _remove_comment(self, line):
         if "#" in line:
@@ -132,27 +146,74 @@ class Parser:
         return line
     
     def _find_label(self, index, lines):
-        self._mem_ids[index] = -1
         if lines[index].endswith(":"):
-            if index = len(lines) - 1:
-                #TODO: May have problem if the last lines are empty
-                self._errors += "Line "+str(index+1)+": Lable Precedes end of file" 
-            else:
-                segments = line.split(":")
-                self._check_label_segs(segments)
+            # if index == len(lines) - 1:
+            #     #TODO: May have problem if the last lines are empty
+            #     self._errors += "ahhh"#"Line "+str(index+1)+": Lable precedes end of file" 
+            # else:
+            #     segments = lines[index].split(":")
+            #     self._check_label_segs(segments, index, pending=True)
+            segments = lines[index].split(":")
+            self._check_label_segs(segments, index, pending=True)
 
         else:
-            self._mem_ids[index] = self._currrent_id
-            self._currrent_id += 1
-            segments = line.split(":")
+            segments = lines[index].split(":")
             last_seg = segments.pop()
-            self._check_label_segs(segments)  
+            self._aux_lines.append((last_seg, index))
+            self._check_label_segs(segments, index)  
 
-    def _check_label_segs(self, segments):
-            for seg in segments:
-                if " " in seg.strip():
-                    self._errors += "Line "+str(index+1)+": Lables cannot contain white space"
+    def _check_label_segs(self, segments, index, pending=False):
+        for seg in segments:
+            if " " in seg.strip().split():
+                self._errors += "Line "+str(index+1)+": Labels cannot contain white space"
+            elif seg.isspace() or seg == '':
+                pass 
+            else:
+                if pending:
+                    self._pending_labels.append((seg, index))
                 else:
-                    labels[seg] = index
+                    for label, line_num in self._pending_labels:
+                        self._labels[label] = len(self._aux_lines) - 1
+                    del self._pending_labels[:]
+                    self._labels[seg] = len(self._aux_lines) - 1
 
-    
+    def _parse_instrn(self, string, cur_index, index):
+        segs = string.split()
+        # need to take care of empty strings
+        if len(segs) == 1:
+            if segs[0].lower() == "write":
+                self._mem[cur_index] = -65
+            elif segs[0].lower() == "halt":
+                self._mem[cur_index] = 0
+            elif segs[0].lower() == "read":
+                self._mem[cur_index] = -98  
+            elif segs[0].isdigit():
+                self._mem[cur_index] = np.int8(segs[0])
+            elif segs[0] in self._labels:
+                self._mem[cur_index] = np.int8(self._labels[segs[0]])
+            else:
+                self._errors += "Error"
+        elif len(segs) == 2:
+            segs[0] = segs[0].lower()
+            if segs[0] in self._instrn_table:
+                instrn = np.int8(self._instrn_table[segs[0]])
+                if segs[1].isdigit():
+                    num = np.int8(segs[1])
+                    self._mem[cur_index] = (instrn << 5) + num
+                elif segs[1] in self._labels:
+                    num = np.int8(self._labels[segs[1]]) 
+                    print("num: ", instrn, num)                    
+                    self._mem[cur_index] = (instrn << 5) + num
+            # pass          
+
+    def get_mem(self):
+        if not self._errors:
+            return self._mem
+        else:
+            return self._errors
+
+    def get_labels(self):
+        return self._labels
+
+    def get_pending(self):
+        return self._pending_labels
