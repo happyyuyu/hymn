@@ -3,6 +3,13 @@ SUB SUM
 WRITE
 HALT
 B:
+
+
+
+
+
+
+
 SUM: A
 A:5
 READ

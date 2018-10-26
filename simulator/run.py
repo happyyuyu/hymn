@@ -12,7 +12,7 @@ import numpy as np
 # a = Simulator(mem)
 # a.run(1)
 
-p = Parser("./testsuites/test3.txt")
-print(p.get_mem()) # should be 
+p = Parser("./simulator/testsuites/test3.txt")
+print(p.get_mem()) 
 print(p.get_labels())
 print(p.get_pending())

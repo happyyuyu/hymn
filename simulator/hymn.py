@@ -129,7 +129,7 @@ class Parser:
         # Get all the labels
         self._errors = ""
         for index, line in enumerate(lines):
-            self._find_label(index, lines)
+            self._process_line(index, lines)
         
         if self._pending_labels:
             for label, line_num in self._pending_labels:
@@ -145,7 +145,7 @@ class Parser:
             line = line[:pos]
         return line
     
-    def _find_label(self, index, lines):
+    def _process_line(self, index, lines):
         if lines[index].endswith(":"):
             # if index == len(lines) - 1:
             #     #TODO: May have problem if the last lines are empty
@@ -157,6 +157,8 @@ class Parser:
             self._check_label_segs(segments, index, pending=True)
 
         else:
+            if lines[index].isspace() or lines[index] == '':
+                return
             segments = lines[index].split(":")
             last_seg = segments.pop()
             self._aux_lines.append((last_seg, index))
@@ -164,6 +166,7 @@ class Parser:
 
     def _check_label_segs(self, segments, index, pending=False):
         for seg in segments:
+            seg = seg.strip()
             if " " in seg.strip().split():
                 self._errors += "Line "+str(index+1)+": Labels cannot contain white space"
             elif seg.isspace() or seg == '':
