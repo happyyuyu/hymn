@@ -1,0 +1,23 @@
+	READ 			#first operand
+	STOR a 			#store as variable a
+
+	READ 			#second operand
+	STOR b 			#store as variable b
+	JZER end 		#quit if b = zero
+
+loop:   SUB one 		#decrement value b “counter”
+	STOR b 			#overwrite b with decremented value
+	LOAD curval 		#load in current product
+	ADD a 			#add value of a if b is not zero
+	STOR curval 		#overwrite curial with new product
+	LOAD b 			#load b to be decremented after jump
+	JPOS loop 		#jump to loop if b still positive
+
+	LOAD curval 		#load in final product
+end: 	WRITE 			#write to console
+	HALT 			#end program
+
+a: 0
+b: 0
+one: 1
+curval: 0

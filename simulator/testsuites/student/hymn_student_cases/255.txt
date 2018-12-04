@@ -1,0 +1,25 @@
+READ			#reads integer from user
+STORE n			#stores value in loop counter
+
+ 	      
+loop:	LOAD sum	#initialize the current sum
+	ADD adder	#add the current integer
+	STORE sum	#store the current sum
+	LOAD adder	#initialize the current integer
+	ADD one		#add one to find value of next integer
+	STORE adder	#store the next integer
+
+	LOAD n		#initialize loop counter
+	SUB one		#subtract one
+	STORE n		#store updated value of loop counter
+	JPOS loop	#if n is > 0 repeat
+			#exit loop
+	LOAD sum	#load sum of integers
+	WRITE		#write sum 
+	
+	HALT
+
+n: 0			#loop counter
+one: 1			#constant 1
+sum: 0			#initial sum
+adder: 1		#integer to be added to sum

@@ -1,0 +1,26 @@
+loop:   loada: Load a 	#Load variable a
+	WRITE		#Output a
+	LOAD one	#
+	ADD loada	#Increment loada, instruction is MSB so remains LOAD but address
+	STORE loada	#is incremented
+	Load primes	#
+	SUB one		#Decrement counter
+	Store primes	#
+	JPOS loop	#If number of primes left to write is positive jump back to loop
+HALT
+
+a:	2
+	3
+	5
+	7
+	11
+	13
+	17
+	19
+	23
+	29
+	31
+	37
+
+primes: 12
+one: 1

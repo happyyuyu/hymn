@@ -1,0 +1,18 @@
+#replicates all of itself
+a:	JUMP loada #jumps to code to execute 
+stop:	HALT #halts program once entire program is copied
+loada: 	LOAD a	#loads line a
+storage:STOR b	#stores b
+	LOAD loada	#loads load a
+	ADD one		#add one to load a
+	STOR loada	#stores new load a	
+	LOAD storage	#loads STOR b
+	ADD one		#add one to STOR b
+	STOR storage	#stores new storage of b
+	LOAD storage	#loads storage to check if done
+	SUB end		#subtracts end storage value	
+	JZER stop	#if 0, halts program	
+	JUMP loada	#jumps back to loada to repeat
+one: 1 		#constant
+end: -66	#constant for end
+b: 2		#constant marking location of line 

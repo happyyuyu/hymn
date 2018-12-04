@@ -1,0 +1,21 @@
+loop:	LOAD loop		#load in current instruction
+dest:	STOR 22			#store in first destination (start at 22)
+
+	LOAD loop		#go back to first instruction
+	ADD one			#increment by one
+	STOR loop		#store as new LOAD instruction
+
+	LOAD dest		#load in current destination
+	ADD one			#increment by one
+	STOR dest		#store as new destination
+
+	LOAD index		#load in current length of program
+        SUB one			#decrement by one each time through loop
+	STOR index		#store new length of program
+
+	JPOS loop		#keep going if index > 0
+	HALT			#end otherwise
+
+destination: LOAD 22
+one: 1
+index: 8

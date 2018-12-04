@@ -1,0 +1,40 @@
+# Prints the first twelve prime numbers
+# Code here:
+	
+pntnxt: LOAD one 		# loads constant in to look at next number
+	ADD loada		# increments loada by 1
+	STOR loada		# stores loada
+ loada: LOAD a			# loads the value of the number to be printed
+	WRITE			# writes value to output I/O
+
+	LOAD counter		# loads counter for incrementation
+	ADD one			# adds one to counter
+	STOR counter		# stores counter value
+	
+	LOAD max		# loads the maximum number of print statements
+	SUB counter		# subtracts the number of primes printed from max
+	
+	JPOS pntnxt		# tests if number of primes printed is less than max
+				# jumps to printnxt, if hasn't printed max times
+
+	HALT			# stop
+
+# variables:
+	counter: 0 		# keeps track of index
+	one: 1 			# constant for decrementation
+	max: 11			# maximum number of print statements (0-11 inclusive)
+
+	# The first twelve prime numbers, stored in a:
+	a:	2
+		3
+		5
+		7
+		11
+		13
+		17
+		19
+		23
+		29
+		31
+		37
+	

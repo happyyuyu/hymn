@@ -1,0 +1,19 @@
+# This is the extra credit solution
+loop: LOAD index # Load index
+JZER one # Check if index is at 0, jump to a halt if it is zero
+
+LOAD loadfl # Load the line that is one line after the last uncopied element in the first list
+SUB one # Subtract one from that address
+STOR loadfl # Update the element at that address
+LOAD storesl # Load the line that is one line after the last uncopied element in the second list
+SUB one # Subtract one from that address
+STOR storesl # Update the element at that address
+LOAD index # Load index
+SUB one # Subtract one from index
+STOR index # Update index
+
+loadfl: LOAD 00001110 # Load the value at (index - 1)
+storesl: STOR 00011110 # Store the value to the second list in the position at (index - 1) 
+JUMP loop # Jump to the top of the loop
+index: 14 
+one: 1

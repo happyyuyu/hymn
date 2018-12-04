@@ -1,0 +1,27 @@
+	LOAD x1		# Load previous product
+	SUB x1		# Subtract product from product so you can start at 0
+	READ		# Read in user input
+	STOR x1		# Store user input as x1
+	STOR adder 	# Adder = x1
+	READ 		# Read in second user input
+	STOR counter	# Store second user input as counter
+	SUB one 	# Subtract 1 (since you go to zero)
+loop:	STOR counter	# Store that value as counter 
+	LOAD x1		# Loads x1
+	ADD adder	# Adds adder to x1
+	STOR x1		# Stores that value as x1
+	LOAD counter	# Loads counter
+	SUB one		# Subtracts one from counter
+	JPOS loop	# Loops until counter is zero
+
+	LOAD x1		# Load value of product
+	WRITE		# Output value of product
+	HALT		# Exit 
+	
+
+
+one: 1
+x1: 0
+counter: 0
+adder: 0
+

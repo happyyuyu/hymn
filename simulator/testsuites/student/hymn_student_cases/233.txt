@@ -1,0 +1,20 @@
+# product of m and n
+READ #read in user's value
+STOR n
+READ 
+STOR m
+loop: 	STOR m # save the m (loop counter)
+	LOAD n 
+	ADD product # add product to n 
+	STOR product #store new product
+	LOAD m #load m so we can	
+	SUB one #subtract 1 from m
+	JPOS loop #while m is positive, repeat loop
+LOAD product #load product
+WRITE #write it out
+HALT
+
+n: 0
+m: 0
+product: 0
+one: 1

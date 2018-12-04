@@ -1,0 +1,24 @@
+loada: LOAD a #we now load data from a!
+WRITE         #print out the value stored in a to the console
+LOAD loada    #load the binary code of loada, which tells the address of a
+ADD one       #alter the loada instruction to make it point to the next value
+STORE loada   #update the load instruction so that it goes to the next number
+LOAD count    #load the counter for the JPOS statement
+SUB one       #Subtract 1 from the counter to indicate 
+STOR count    #Update the counter
+JPOS 0        #Go back to the beginning of the loop as long as the counter is positive
+HALT
+a: 2          # list of first 12 prime numbers)
+   3
+   5
+   7
+   11
+   13
+   17
+   19
+   23
+   29
+   31
+   37
+count: 12     #indicates the position of the number that has just been printed, with 2 being the 12th and 37 being 1st.
+one: 1

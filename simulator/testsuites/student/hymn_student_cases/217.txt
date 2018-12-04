@@ -1,0 +1,20 @@
+Read			#Read in numbers to be multiplied
+Store n			#
+Read			#
+Store m			#
+JZER zero		#If m is 0 jump to zero 
+loop:   Load product	#Load running product
+	Add n		#
+	Store product	#Add n to running product
+	Load m		#
+	Sub one		#Decrement m
+	Store m		#
+	JPOS loop	#If m is positive jump back to loop
+zero:   Load product	#
+Write			#Output product
+Halt
+
+n: 0
+m: 0
+one: 1
+product: 0

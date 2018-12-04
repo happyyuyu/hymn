@@ -1,0 +1,17 @@
+READ #prompt user to input
+STOR sum #store the sum value
+STOR current #store the current value
+loop: LOAD current #load the current value
+JZER value #if current value is zero, return the sum
+SUB one #subtract one from the current value
+STOR current #store new current value
+ADD sum #add sum value to AC
+STOR sum #store new sum
+JUMP loop #return to top of loop
+
+
+value: LOAD sum #Load the final sum
+	WRITE #Write to the console
+one: 1
+current: 0
+sum: 0

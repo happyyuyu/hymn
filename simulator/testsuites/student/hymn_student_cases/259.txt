@@ -1,0 +1,20 @@
+	LOAD SUM	#resets SUM to 0
+	SUB SUM
+
+
+	READ		#reads user input
+	STOR N		#stores user input as N
+LOOP: 	LOAD SUM	#adds N, subtracts 1 from N then repeat
+	ADD N
+	STOR SUM	#stores result
+	LOAD N		#loads N
+	SUB ONE		#subtract 1 from n
+	STOR N		#stores N
+	JPOS LOOP	#if N reaches 0, stop and write SUM
+
+	LOAD SUM
+	WRITE		#write out SUM
+	HALT		#stops the program
+ONE: 1
+N: 0
+SUM: 0

@@ -1,0 +1,38 @@
+# malicious program that copies the first eight lines 
+# into the last eight locations in memory
+# Code here:
+	
+stnxt:	LOAD storeE		# loads the store command for storage to the end
+	ADD one			# increases store location by 1
+	STOR storeE		# stores new store command
+
+ load0: LOAD 0                  # loads the line of code to be moved
+storeE: STOR 21			# stores the line of code at the end
+        LOAD one        	# loads constant in to look at next line of code
+        ADD load0               # increments code line loader by 1
+        STOR load0              # stores code line loader
+
+        LOAD counter            # loads counter for incrementation
+        ADD one                 # adds one to counter
+        STOR counter            # stores counter value
+        
+        LOAD max                # loads the maximum number of code movements
+        SUB one                 # decreases max every time we move a new line of code
+        STOR max		# stores the decremented value to max
+
+        JPOS stnxt              # tests if number of lines moved is less than max
+                                # jumps to stnxt, if hasn't moved max times
+
+        HALT                    # stop
+
+# Variables:
+
+	counter: 0 		# counter for first eight lines (0-7)
+	max: 8			# maximum number of lines to copy
+	end: 29			# end of memory available
+	
+# Constants:
+	
+	one: 1			# constant for decrementation
+	zero: 0			# constant 0
+

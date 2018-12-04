@@ -1,0 +1,32 @@
+LOAD primes			#load list of primes
+WRITE				
+
+loop:	LOAD one		#load 1
+	ADD loada		#add 1 to loada
+	STORE loada		#store updated loada
+
+loada:  LOAD primes		#load list of primes
+        WRITE
+
+	LOAD counter		#load loop counter
+	SUB one			#subtract 1
+	STORE counter		#store updated value
+	JPOS loop		#if > 0 repeat
+	
+	HALT
+		
+counter: 11			#loop counter
+one: 1				#constant 1
+
+primes:	2			#list of primes
+	3
+	5
+	7
+	11
+	13
+	17
+	19
+	23
+	29
+	31
+	37

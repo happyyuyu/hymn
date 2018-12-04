@@ -1,0 +1,17 @@
+	JZER init #skip to loada if AC is zero 
+INC:	LOAD one #increment through a values
+init:	ADD loada #add one each time
+	STOR loada #store it
+	LOAD one #load 1
+	ADD storb #add one to storb
+	STOR storb #store to storb
+loada:	LOAD 0 #rewritten program
+storb:	STORE 21 #store a at b
+	LOAD counter #number of instructions to be copied
+	SUB one #substratc one after copying one instruction
+	STOR counter #store current count
+	JPOS INC #stops looping after 8 instructions are copied
+
+	
+counter: 8 #number of instructions to be copied
+one: 1 #increment of count for every loop

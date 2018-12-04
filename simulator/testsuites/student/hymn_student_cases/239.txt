@@ -1,0 +1,16 @@
+	READ
+	STOR input #stores user value as input
+	LOAD input #loads user value into AC
+repeat: JZER final #jumps to loading final sum if AC is zero
+	ADD sum	   #adds current input to sum 
+	STOR sum   #stores result in sum
+	LOAD input #loads last input
+	SUB one    #subtracts one from input
+	STOR input #stores new input
+	JUMP repeat #jumps back to check if AC is zero
+final: 	LOAD sum #loads final sum
+	WRITE
+	HALT #stops program
+input: 0 #users input value/number to be added
+sum: 0 #sum of integers to user input value
+one: 1 #constant 

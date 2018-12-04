@@ -1,0 +1,17 @@
+Read			#Read input
+Store n			#Store in variable n
+loop:   Load sum	#Load running sum initially zero
+	Add n		#
+	Store sum	#Add n to sum
+	Load n		#
+	Sub one		#Decrement n
+	Store n		#
+	JPOS loop	#If n is positive jump back to loop
+Load sum		#
+Write			#Output sum
+Halt
+
+
+n: 0
+sum:0
+one: 1

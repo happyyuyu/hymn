@@ -1,0 +1,17 @@
+LOAD 30 #ask for an input from the I/O
+JZER end #if the  input is 0, end the program
+STOR result #store the first element of the summation into result which is the user input
+SUB one #subtract it by one so the value in AC becomes the number of left iterations and the next value to be added
+loop: STOR count #store the current value in AC to count
+ADD result #add the result into the AC
+STOR result #store the value in AC back to result
+LOAD count #load the count 
+SUB one #subtract one from the count
+JPOS loop #if count is positive, continue looping
+LOAD result #once finished adding, load the value to count 
+end: STOR 31 #write it to I/O
+HALT
+
+one: 1
+result: 0 #create a memory address for storing result
+count: 0 #create a memory address for storing count

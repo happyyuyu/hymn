@@ -1,0 +1,16 @@
+	READ #read from I/O
+	STOR n #store the value into variable n
+LOOP:	LOAD sum #load from sum
+	ADD n #add n into sum
+	STOR sum #store the value into sum
+	LOAD n #read from n
+	SUB one #subtract 1 from n
+	STOR n #store the value into n
+	JPOS LOOP #if n>0 go back to LOOP
+	LOAD sum #read from sum
+	WRITE #write into I/O
+	HALT# halt
+
+n: 0
+sum: 0
+one: 1

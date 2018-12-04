@@ -1,0 +1,21 @@
+READ #prompt first operand (the number to be added multiple times)
+STOR A #store first operand
+READ #prompt second operand (how many times you add A to itself)
+STOR B #store second operand
+
+loop: LOAD B #load second operand
+JZER result #if it's zero, you're done adding. return result.
+SUB one #subtract one from second operand
+STOR B #store new second operand
+LOAD product #load current sum of As
+ADD A #add A to the current sum
+STOR product #store new sum of As
+JUMP loop #run loop again
+
+A: 0
+B: 0
+one: 1
+result: LOAD product #LOAD the final product
+	WRITE # Write to console
+
+product: 0

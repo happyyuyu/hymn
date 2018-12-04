@@ -1,0 +1,34 @@
+
+	LOAD a			#loads initial a value
+	WRITE			#writes initial a value
+loop: 	LOAD loada		#loop that loads next a value
+	ADD one			#add one to location
+	STORE loada		#store new location
+loada:  LOAD a			#load a value
+	WRITE			#write a value
+
+	LOAD counter		#load counter value
+	ADD one			#increment by one
+	STOR counter		#store new counter value
+
+	LOAD length		#load in length of primes list
+	SUB counter		#see if length - counter > 0 --> keep going
+
+	JPOS loop		#jump to loop and print next value of a
+	HALT			#end if counter = length
+
+counter: 0
+one: 1
+length: 11
+a: 2
+3
+5
+7
+11
+13
+17
+19
+23
+29
+31
+37

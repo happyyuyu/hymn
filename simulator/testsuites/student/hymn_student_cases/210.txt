@@ -1,0 +1,23 @@
+	LOAD a #load from a
+	Write #write into I/O
+LOOP:	LOAD loada #load from loada
+	ADD one #add 1 into loada
+	STOR loada #store the value into loada
+loada:  LOAD a #load from a
+	JZER END #if AC=0 go to END
+	WRITE #write into I/O
+	JPOS LOOP #if AC>0 go back to LOOP	
+END:	HALT #halt
+one: 1
+a: 2 # list of primes
+3
+5
+7
+11
+13
+17
+19
+23
+29
+31
+37

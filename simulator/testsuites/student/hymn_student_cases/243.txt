@@ -1,0 +1,25 @@
+# prints sum of values from 1 to n
+# Code here:
+
+	READ 		# gets user input value
+	STOR n 		# save input value to variable n
+
+   add: LOAD sum 	# moves current sum to AC to be incremented
+	ADD n 		# adds n to sum
+	STOR sum 	# store sum value
+	LOAD n 		# loads n to AC to be decremented
+	SUB one 	# decrements n
+	STOR n 		# store subtracted value to n
+	
+	JPOS add 	# if n>1, continue adding
+	
+	LOAD sum 	# put final sum into AC to prep for output
+	WRITE 		# prints sum of digits from 1 to n
+
+	HALT 		# stop
+
+# Variables:
+	
+	sum: 0 		# running sum
+	n: 0 		# upper-bound on the sum
+	one: 1 		# constant 1

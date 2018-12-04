@@ -1,0 +1,27 @@
+loada:	LOAD a		#loads first value of a
+	WRITE		#writes that value
+	LOAD ONE	#loads 1
+	ADD loada	#adds 1 to value of loada
+	STORE loada	#stores new value of loada
+	LOAD N		#load N
+	SUB ONE		#subtracts 1 from N
+	STORE N		#stores N
+	JPOS loada	#if N>0, jump to line loada
+	HALT		#if N=0, stop the program
+
+a:	2
+	3
+	5
+	7
+	11
+	13
+	17
+	19
+	23
+	29
+	31
+	37
+
+N:	12
+
+ONE:	1

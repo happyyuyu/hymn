@@ -1,0 +1,26 @@
+	JZER init #skip to loada if AC is zero 
+INC:	LOAD one #increment through a values
+init:	ADD loada #add one each time
+	STOR loada #store it
+loada:	LOAD a #rewritten program
+	WRITE #print to I/O
+	LOAD counter #let the program know when to stop
+	SUB one
+	STOR counter
+	JPOS INC
+
+	
+a:	2
+	3
+	5
+	7
+	11
+	13
+	17
+	19
+	23
+	29
+	31
+	37
+counter: 12
+one: 1

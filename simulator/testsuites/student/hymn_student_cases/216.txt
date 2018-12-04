@@ -1,0 +1,17 @@
+#with the extra credit
+loadA: LOAD 0 #load the corresponding instruction into AC
+JZER end #check if it’s the end of code
+storB: STOR copy #store the instruction at a new memory location
+LOAD one #load one into AC
+ADD loadA #increment loadA (in AC) by one
+STOR loadA #store the incremented value back to loadA
+LOAD one #load one into AC
+ADD storB #increment storB (in AC) by one
+STOR storB #store the incremented value back to storB
+JUMP loadA #loop back to the beginning
+
+end: HALT #halt if virus reaches the last line of code
+
+one: 1 #one
+copy: 0 #memory access for the copied instructions
+

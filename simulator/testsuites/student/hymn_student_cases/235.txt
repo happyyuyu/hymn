@@ -1,0 +1,15 @@
+# sum to n
+READ #read in user's value
+loop: 	STOR n # save the n
+	ADD sum	# add sum to n 
+	STOR sum #store new sum
+	LOAD n #load n so we can	
+	SUB one #subtract 1 from n
+	JPOS loop #while n is positive, repeat loop
+LOAD sum #load sum
+WRITE #write it out
+HALT
+
+n: 0
+sum: 0
+one: 1

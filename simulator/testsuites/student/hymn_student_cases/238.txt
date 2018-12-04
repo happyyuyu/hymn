@@ -1,0 +1,27 @@
+	LOAD zero #loads value zero
+start:	ADD loada #adds AC to load a command - incrementing a only after loop starts
+	STOR loada #stores new load a value
+loada:	LOAD a	#loads a
+	WRITE #writes value at a to console
+	LOAD loada #loads load a command
+	ADD value #adds value to check if at end 
+	JZER end #checks if program should halt
+	LOAD one #loads one
+	JUMP start #jumsps back to load a 
+end:	HALT #halts program
+
+a: 	2 #list of primes - incremented by a
+	3
+	5
+	7
+	11
+	13
+	17
+	19
+	23
+	29
+	31
+	37	
+zero: 0 #constant
+one: 1 #constant
+value: 106 #end value

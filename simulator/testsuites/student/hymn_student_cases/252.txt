@@ -1,0 +1,15 @@
+loadFront: LOAD 0  #Load the current instruction value
+storeBack: STOR 22 #Store the value to the appropriate line (copy)
+LOAD loadFront     #Load the binary code of the current load instruction
+ADD one            #Go to the next line
+STOR loadFront     #Update the Load line to load the next line
+LOAD storeBack     #Load the binary code for the current store instruction
+ADD one            #Go to the next line
+STOR storeBack     #Update the Store line to store at the next line
+LOAD count         #Load the counter which indicate what line the program is on
+SUB one            #Subtract counter by one
+STOR count         #Update the value for counter
+JPOS 0             #Go back to the beginning of the loop while the counter is positive
+HALT
+count: 8
+one: 1

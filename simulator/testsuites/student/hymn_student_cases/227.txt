@@ -1,0 +1,18 @@
+	LOAD sum	# Load previous sum
+	SUB sum 	# Subtract sum from sum so you can start at 0
+	READ		# Reads user input
+loop:	STOR value	# Stores user input
+	ADD sum		# Add sum to user input
+	STOR sum 	# Stores that value into sum
+	LOAD value	# Loads the counter (starting at n)
+	SUB one 	# Subtracts one from counter
+	JPOS loop	# Loops until counter is zero (exit loop at zero)
+	
+	LOAD sum	# Load value of sum
+	WRITE 		# Output value of sum
+	HALT		# Exit 
+	
+
+sum: 0
+value: 0
+one: 1

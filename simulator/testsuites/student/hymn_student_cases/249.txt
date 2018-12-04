@@ -1,0 +1,17 @@
+READ    #Prompt for user input
+STOR 20 #Store the first input
+STOR 21 #Keep track of the current product value
+READ    #Prompt for second input
+SUB one #Adjust the counter for number of time of sum (=multiplication)
+STOR 22 #Store the second input to keep track of the multiplication
+LOAD 20 #Return AC value to the first input
+ADD 21  #Do a round of multiplication for the first value (in AC)
+STOR 21 #Update the current product value
+LOAD 22 #Return the AC value to the second input value which keeps track of the round of multiplication
+SUB one #Subtract one from the round number due to having done one round of multiplication
+STOR 22 #Update the round number
+JPOS 5  #Return to the loop where the first input value is loaded into PC again
+LOAD 21 #Update the AC value with the product value
+WRITE  #Print out the value
+HALT
+one:1

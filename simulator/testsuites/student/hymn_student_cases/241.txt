@@ -1,0 +1,32 @@
+# multiplication by adding the x value to itself y times
+# Code here:
+	
+	#input 1:
+	READ 		# get user input value
+	STOR x 		# save input value to variable x
+	
+	#input 2:
+	READ 		# get user input value
+	STOR y 		# save input value to variable y
+	
+
+   add: LOAD prod 	# moves current sum to AC to be incremented
+	ADD x 		# adds x to prod
+	STOR prod 	# store prod value
+	LOAD y 		# loads y to AC to be decremented
+	SUB one 	# decrements y
+	STOR y 		# store subtracted value to y
+	
+	JPOS add 	# if y>1, continue multiplying
+	
+	LOAD prod 	# put final product into AC to prep for output
+	WRITE 		# prints sum of digits from 1 to n
+
+	HALT 		# stop
+
+# Variables:
+	
+	prod: 0 	# running product of multiplication
+	x: 0 		# first value to be multiplied
+	y: 0 		# second value to be multiplied
+	one: 1 		# constant 1

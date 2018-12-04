@@ -1,0 +1,30 @@
+# This is the extra-credit version of virus
+
+loada: 	LOAD loada 	# Load memory address of first line
+loadb:	STOR 15		# Store that memory address in line 15 (this is the first blank line after the instructions and there are also 15 lines left to fill)
+	LOAD loadb	# Load that memory address
+	ADD one		# Add one to it to progress to the next line to copy data to  
+	STOR loadb	# Store it
+	
+	LOAD loada	# Load the first line
+	ADD one		# Add one to progress to next line to copy data from 
+	STOR loada	# Store it
+
+	LOAD counter	# Load counter (starts at 8 because we are writing the first 8 lines to the last 8)
+	SUB one		# Subtract 
+	STOR counter 	# Store this value 
+
+	JPOS loada 	# Loop back to the top (loada) and continue until counter = 0
+	
+	HALT		# Exit 
+
+
+one: 1
+counter: 15		# The counter is 15 because at the start, there are 15 lines of instruction to replicate
+
+
+
+
+
+
+	

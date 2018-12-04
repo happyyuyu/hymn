@@ -1,0 +1,22 @@
+	LOAD PRODUCT	#resets PRODUCT to 0
+	SUB PRODUCT	
+
+	READ		#reads user input
+	STORE X		#stores input as X
+	READ		#reads second user input
+	STORE Y		#stores second input as Y
+LOOP: 	LOAD PRODUCT	#adds X Y times then subtract 1 from Y
+	ADD X
+	STOR PRODUCT
+	LOAD Y
+	SUB ONE
+	STOR Y
+	JPOS LOOP	#if Y reaches 0, stop and write PRODUCT
+	LOAD PRODUCT
+	WRITE		#write out PRODUCT
+	HALT		#stops the program
+
+X: 0
+Y: 0
+ONE: 1
+PRODUCT: 0

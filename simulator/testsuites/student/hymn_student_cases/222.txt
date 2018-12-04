@@ -1,0 +1,30 @@
+loop: LOAD index #load index of last item in list
+JZER first # if the index is at 0, we skip load 1
+SUB twelve # subtract 12
+JZER halt #check if it hit 12, if it is 12 we halt
+LOAD one # load 1
+first:ADD loada #go to next element in list
+STORE loada #store the new element index
+LOAD index #load counter
+ADD one #increment counter
+STOR index #store updated counter value
+loada:  LOAD a #load value at element address
+        WRITE #print to console
+	JUMP loop #restart loop
+
+a: 	2
+	3
+	5
+	7
+	11
+	13
+	17
+	19
+	23
+	29
+	31
+	37
+halt: HALT
+index: 0
+one: 1
+twelve: 12

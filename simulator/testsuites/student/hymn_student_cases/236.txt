@@ -1,0 +1,16 @@
+Read: LOAD 0 	# Save our load instruction
+Store: STOR 22	# Save our stor instruction
+LOAD Read
+ADD one		# add one to Read (LOAD (prev) + 1)
+STOR Read	# now Read is LOAD (prev)+1
+LOAD Store	
+ADD one		# add one to Store (STOR (prev) + 1)
+STOR Store	# now Read is STOR prev+1
+LOAD count 	# For looping over	
+SUB one		# the first 8 lines.
+STOR count	# Save the loop index
+JPOS 0		# when count is 0, stop
+HALT
+
+count: 8
+one:1

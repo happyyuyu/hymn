@@ -1,0 +1,13 @@
+READ    #Prompt for user input
+STOR 16 #Store the input to a cell to keep track of the number we are currently on in the loop
+STOR 17 #Store the sum so far
+SUB one #Subtract 1 from AC to obtain the current number in the loop
+STOR 16 #Update the current number
+ADD 17  #Sum the current number with the previous sum
+STOR 17 #Update the sum
+LOAD 16 #Load the current number back into AC
+JPOS 3  #Return to the loop at the point of subtraction
+LOAD 17 #Update the AC value with the sum value
+WRITE   #Print out the value
+HALT
+one:1

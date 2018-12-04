@@ -1,0 +1,35 @@
+	LOAD zero 	# Load zero to get 0th element of primes
+loop:	LOAD zero	# Load zero (to be able to change to 1 after first loop)
+	ADD loada	# Adds value of memory address of LOAD a
+	STOR loada	# Stores that value 
+loada: 	LOAD a		# Loads prime value
+	WRITE		# Output prime value
+	
+	LOAD one	# Loads variable one 
+	STOR zero	# Changes variable of zero to one (so we can loop through primes list)
+
+	LOAD counter	# Loads counter
+	SUB one		# Subtract 1 from counter
+	STOR counter	# Stores that value in counter
+
+	JPOS loop	# Loop until counter = 0
+
+	HALT		# Exit 
+
+a: 	2
+	3
+	5
+	7
+	11
+	13
+	17
+	19
+	23
+	29
+	31
+	37
+
+zero: 0
+one: 1
+counter: 12
+	

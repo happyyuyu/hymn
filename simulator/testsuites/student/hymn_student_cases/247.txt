@@ -1,0 +1,19 @@
+
+	  READ 			#prompt user for n
+	  STOR n 		#store to location 01101
+
+addnext:  ADD cursum 		#add AC value to current sum
+	  STOR cursum 		#save it to location 01001
+
+	  LOAD n 		#load current value of n
+	  SUB one 		#subtract one
+	  STOR n 		#store back to location 01101
+
+	  JPOS addnext 		#loop if not at zero
+	  LOAD cursum 		#load final sum into AC
+	  WRITE 		#write final sum to console
+	  HALT 			#end program
+
+cursum: 0
+n: 0
+one: 1

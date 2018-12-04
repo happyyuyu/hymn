@@ -1,0 +1,32 @@
+LOAD a #load the first value
+WRITE #write it to the I/O
+
+LOAD count #load the number of left iterations
+loop: STOR count #store/update the number of left iterations
+LOAD one #load one into AC
+ADD loada #increment loada, which is AC, by 1
+STOR loada #store the incremented value back to loada
+loada: LOAD a #load the corresponding value in the list to the AC
+WRITE #write the value to I/O
+LOAD count #load the number of left iterations
+SUB one #subtract the number of left iterations by one
+JPOS loop #continue loop if the left iterations is greater than 0
+HALT #halt the program when done
+
+
+
+a: 2
+3
+5
+7
+11
+13
+17
+19
+23
+29
+33
+37
+
+count: 11
+one: 1

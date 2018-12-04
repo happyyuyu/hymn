@@ -1,0 +1,24 @@
+loada: LOAD a 	# store LOAD a at loada
+WRITE 		# write a to output
+LOAD loada 	# loada + a
+ADD one		# loada + a + 1
+STORE loada	# save new value
+LOAD count 	# our counter for the loop
+SUB one		# decrement counter
+STOR count	# store the new count value
+JPOS 0		# if the count reaches 0, @ end of list a
+HALT
+a: 2
+  3
+  5
+  7
+  11
+  13
+  17
+  19
+  23
+  29
+  31
+  37
+count: 8
+one: 1

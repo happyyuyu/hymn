@@ -1,0 +1,38 @@
+
+x:	LOAD 0			#load the original memory address
+y:	STORE 22		#store the instruction in the last memory address
+
+loop: 	LOAD x			#load current first column memory address
+	ADD one			#add one to first column memory address
+	STORE x			#store updated memory address
+	LOAD y			#load current last column memory address
+	ADD one			#add one to last column memory address
+	STORE y			#store updated memory address
+	LOAD counter		#load the loop counter
+	SUB one			#subtract 1
+	STORE counter		#store updated loop counter
+	JPOS x			#if counter > 0 repeat
+	
+
+
+one: 1				# constant 1
+counter: 8			# loop counter
+
+
+
+#EXTRA CREDIT
+#We were not sure if this code would go through the entire memory 
+
+
+#x:	LOAD 0			#load the original memory address
+#y:	STORE 22		#store the instruction in the last memory address
+
+#loop: 	LOAD x			#load current first column memory address
+	#ADD one		#add one to first column memory address
+	#STORE x		#store updated memory address
+	#LOAD y			#load current last column memory address
+	#ADD one		#add one to last column memory address
+	#STORE y		#store updated memory address
+	#JUMP x			#jump to x 
+
+#one : 1			#constant 1

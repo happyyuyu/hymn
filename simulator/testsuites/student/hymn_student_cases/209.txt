@@ -1,0 +1,23 @@
+	READ #read from user input
+	STOR a #store the value into a
+	READ #read from user input
+	STOR b #store the value into b
+	JZER ifzero #if b=0 go to ifzero
+	LOAD a #load from a
+	JZER ifzero #if a=0 go to ifzero
+	
+LOOP:	LOAD sum #load from sum
+	ADD a #add a into sum
+	STOR sum #store the value into sum
+	LOAD b #read from b
+	SUB one #subtract 1 from b
+	STOR b #store the value into b
+	JPOS LOOP #if b>0 go back to LOOP
+	LOAD sum #read from sum
+ifzero:	WRITE #write into I/O
+	HALT# halt
+
+sum: 0
+a: 0
+b: 0
+one: 1

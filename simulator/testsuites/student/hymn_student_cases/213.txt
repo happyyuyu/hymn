@@ -1,0 +1,23 @@
+LOAD 30 #get an input from I/O
+JZER end #if number is 0, then end it
+STOR num #store the first input into num
+STOR result #store the AC value to result
+LOAD 30 #get a second input from I/O
+JZER end #if number is 0, then end
+SUB one #subtract this number by one
+loop: STOR count #store the subtracted number into count
+LOAD num #load the first input into AC
+ADD result #add it to the result
+STOR result #store the new number back to result
+LOAD count #load the count, which is number of left iterations into the AC
+SUB one #subtract the number by one
+
+JPOS loop #continue if number of left iterations is greater than 0
+LOAD result #load the result, when the loop has finished
+end: STOR 31 #output
+HALT #halt the program
+
+one: 1 #one
+num:0 #memory access for storing the first input
+count:0 #memory access for storing the number of iterations
+result:0 #memory access for storing the result

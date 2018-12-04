@@ -1,0 +1,25 @@
+READ				#read user input for first integer
+STORE x				#store value in x
+READ				#read user input for second integer
+STORE y				#store value in y
+
+				
+				#this loop sums the value x y-times
+loop: 	LOAD product		#initialize product of two integers
+	ADD x			#add first integer given by user
+	STORE product		#store updated product
+	
+	LOAD y			#load loop counter (second integer)
+	SUB one			#subtract 1
+	STORE y			#store updated loop counter
+	JPOS loop		# if y > 0 repeat
+
+	LOAD product		#load final product
+	WRITE			#write to I/O
+
+x: 0				#first integer
+y: 0				#second integer (loop counter)
+product: 0			#inital product
+one: 1				#constant 1
+	
+

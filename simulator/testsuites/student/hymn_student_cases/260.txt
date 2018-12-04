@@ -1,0 +1,21 @@
+loada:	LOAD loada	#load the first line
+loadb:	STORE 22	#store the first line in memory address 22
+	
+	LOAD ONE	#loads 1
+	ADD loada	#increments loada by 1
+	STORE loada	#stores new value of loada
+
+	LOAD ONE	#loads 1
+	ADD loadb	#increments loada by 1
+	STORE loadb	#stores new value of loadb
+
+	LOAD N		#load N
+	SUB ONE		#subtracts 1 from N
+	STORE N		#stores n
+	JPOS loada	#if N>0, jump to line loada
+	HALT		#if N=0, stop the program
+
+
+N:	8
+
+ONE:	1

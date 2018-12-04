@@ -1,0 +1,22 @@
+#Extra-Credit Extension
+
+loop:   line: LOAD 0          #load line 0 into AC
+	destination: Store 18 #store AC to address 18
+
+	Load one              #
+	ADD line              #Increment line, instruction is most significant bits so
+	Store line            #instruction remains LOAD, memory location incremented
+
+	LOAD one              #
+	ADD destination       #Increment destination , instruction remains STORE destination
+	STORE destination     #incremented
+
+	LOAD counter          #
+	SUB one               #Decrement counter of number of lines remaining to duplicate
+	STORE counter         #
+
+	JPOS loop             #If there are lines left to duplicate jump back to loop
+HALT
+
+counter: 12
+one: 1

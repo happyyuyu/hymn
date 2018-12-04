@@ -1,0 +1,16 @@
+#This code copies the entire program not just the first 8 lines.
+loada:	LOAD loada #load the line to be copied
+pos:	STOR 17 #store the code into the target line
+	LOAD loada #load from loada
+	ADD one #add one to the code
+	STOR loada #store the code into loada
+	LOAD pos #load from pos
+	ADD one #add one to the code
+	STOR pos #store the code into pos
+	LOAD sum #load from sum
+	SUB one #add one to the value
+	STOR sum #store the value into sum
+	JPOS loada #if sum>0 go to loada
+END:	HALT #halt
+sum: 13
+one: 1

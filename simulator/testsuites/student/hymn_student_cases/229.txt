@@ -1,0 +1,20 @@
+	READ #read value
+	STOR value1 #save in first value index
+	READ #read value
+	STOR value2 #save in second value index
+LOOP:	LOAD result #load the current answer
+	ADD value1 #add first value to them
+	STOR result #store current answer
+	LOAD value2 #start counting down second value
+	SUB negOne #so we know when
+	STOR value2 #to stop adding first value to itself
+	JPOS LOOP
+RESULT:	LOAD result
+
+
+
+
+value1: 0
+value2: 0
+result: 0
+negOne: 1

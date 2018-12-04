@@ -1,0 +1,14 @@
+	READ #read in the value
+	STOR counter #store to value counter
+LOOP:	
+	ADD storage #add storage to counter
+	STOR storage #store to storage
+	LOAD counter #load counter
+	SUB negOne #subtract 1 from counter
+	STOR counter
+	JPOS LOOP #Keep going till counter hits 0
+	LOAD storage
+
+counter: 0
+storage: 0
+negOne:	1
