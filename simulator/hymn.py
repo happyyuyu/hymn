@@ -3,7 +3,7 @@ An implementation of the SimHymn simulator.
 
 Includes a parser and interpreter for the SimHYMN instructions.
 
-Author: Harry Zhou
+Author: Yuhan (Harry) Zhou
 """
 from collections import deque
 import numpy as np
@@ -124,7 +124,8 @@ class Parser:
                              "load": 4,
                              "stor": 5,
                              "add": 6,
-                             "sub": 7}
+                             "sub": 7,
+                             "store": 5}
 
         # Get all the labels
         self._errors = ""
@@ -138,6 +139,7 @@ class Parser:
         for cur_index, line_info in enumerate(self._aux_lines):
             self._parse_instrn(line_info[0],cur_index,line_info[1])
         
+        # print(self._aux_lines)
 
     def _remove_comment(self, line):
         if "#" in line:
@@ -180,6 +182,14 @@ class Parser:
                     del self._pending_labels[:]
                     self._labels[seg] = len(self._aux_lines) - 1
 
+    def _check_binary(self, string):
+        if len(string) != 8:
+            return False
+        for char in string:
+            if char != "0" or char != "1":
+                return False
+        return True
+
     def _parse_instrn(self, string, cur_index, index):
         segs = string.split()
         # need to take care of empty strings
@@ -190,11 +200,16 @@ class Parser:
                 self._mem[cur_index] = 0
             elif segs[0].lower() == "read":
                 self._mem[cur_index] = -98  
+            elif self._check_binary(segs[0]):
+                self._mem[cur_index] = np.int8(int(segs[0],2)) 
             elif segs[0].isdigit():
+                self._mem[cur_index] = np.int8(segs[0])
+            elif segs[0][0]=='-' and segs[0][1:].isdigit():
                 self._mem[cur_index] = np.int8(segs[0])
             elif segs[0] in self._labels:
                 self._mem[cur_index] = np.int8(self._labels[segs[0]])
             else:
+                print(segs[0], string)
                 self._errors += "Error"
         elif len(segs) == 2:
             segs[0] = segs[0].lower()
@@ -204,8 +219,7 @@ class Parser:
                     num = np.int8(segs[1])
                     self._mem[cur_index] = (instrn << 5) + num
                 elif segs[1] in self._labels:
-                    num = np.int8(self._labels[segs[1]]) 
-                    print("num: ", instrn, num)                    
+                    num = np.int8(self._labels[segs[1]])              
                     self._mem[cur_index] = (instrn << 5) + num
             # pass          
 
