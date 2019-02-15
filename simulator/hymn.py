@@ -178,15 +178,17 @@ class Parser:
                     self._pending_labels.append((seg, index))
                 else:
                     for label, line_num in self._pending_labels:
+                        print(label,self._aux_lines)
                         self._labels[label] = len(self._aux_lines) - 1
                     del self._pending_labels[:]
                     self._labels[seg] = len(self._aux_lines) - 1
 
     def _check_binary(self, string):
+        # TODO: Figure out under what circumstances should it be binary. 
         if len(string) != 8:
             return False
         for char in string:
-            if char != "0" or char != "1":
+            if char != "0" and char != "1":
                 return False
         return True
 
@@ -215,9 +217,13 @@ class Parser:
             segs[0] = segs[0].lower()
             if segs[0] in self._instrn_table:
                 instrn = np.int8(self._instrn_table[segs[0]])
-                if segs[1].isdigit():
+                if self._check_binary(segs[1]):
+                    self._mem[cur_index] = (instrn << 5) + np.int8(int(segs[1],2)) 
+                elif segs[1].isdigit():
                     num = np.int8(segs[1])
                     self._mem[cur_index] = (instrn << 5) + num
+                elif segs[1][0]=='-' and segs[1][1:].isdigit():
+                    self._mem[cur_index] = (instrn << 5) + np.int8(segs[1])
                 elif segs[1] in self._labels:
                     num = np.int8(self._labels[segs[1]])              
                     self._mem[cur_index] = (instrn << 5) + num
