@@ -156,7 +156,7 @@ class Parser:
             #     segments = lines[index].split(":")
             #     self._check_label_segs(segments, index, pending=True)
             segments = lines[index].split(":")
-            self._check_label_segs(segments, index, pending=True)
+            self._check_label_segs(segments, index, True)
 
         else:
             if lines[index].isspace() or lines[index] == '':
@@ -164,23 +164,24 @@ class Parser:
             segments = lines[index].split(":")
             last_seg = segments.pop()
             self._aux_lines.append((last_seg, index))
-            self._check_label_segs(segments, index)  
+            self._check_label_segs(segments, index, False)  
 
     def _check_label_segs(self, segments, index, pending=False):
+        if not pending:
+            if pending == False:
+                for label, line_num in self._pending_labels:
+                    self._labels[label] = len(self._aux_lines) - 1
+                del self._pending_labels[:]  
         for seg in segments:
             seg = seg.strip()
             if " " in seg.strip().split():
                 self._errors += "Line "+str(index+1)+": Labels cannot contain white space"
             elif seg.isspace() or seg == '':
-                pass 
+                pass
             else:
                 if pending:
                     self._pending_labels.append((seg, index))
                 else:
-                    for label, line_num in self._pending_labels:
-                        print(label,self._aux_lines)
-                        self._labels[label] = len(self._aux_lines) - 1
-                    del self._pending_labels[:]
                     self._labels[seg] = len(self._aux_lines) - 1
 
     def _check_binary(self, string):
