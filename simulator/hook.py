@@ -2,12 +2,18 @@
 
 import time
 from flask import Flask, request, render_template
+import hymn
 
 app = Flask(__name__)
 
 @app.route("/test")
 def hello():
     return "Hello! Produced by Python."
+    # return render_template("name.html", name="Hazhou")
+
+@app.route("/to_parse")
+def init_parser():
+    return "Hello! Produced by flask."
     # return render_template("name.html", name="Hazhou")
 
 if __name__ == "__main__":
